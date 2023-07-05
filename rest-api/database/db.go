@@ -9,11 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var MongoClinet *mongo.Client
+var MongoClient *mongo.Client
 
 func GetCollection(collectName string) *mongo.Collection {
 	database := os.Getenv("DATABASE")
-	return MongoClinet.Database(database).Collection(collectName)
+	return MongoClient.Database(database).Collection(collectName)
 }
 
 func StartMongoDB() error {
@@ -22,7 +22,7 @@ func StartMongoDB() error {
 		log.Fatal("You must set your 'MONGODB_URI' environmental variable. See\n\t https://www.mongodb.com/docs/drivers/go/current/usage-examples/#environment-variable")
 	}
 	var err error
-	MongoClinet, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+	MongoClient, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		panic(err)
 	}
@@ -31,7 +31,7 @@ func StartMongoDB() error {
 }
 
 func CloseMongoDB() {
-	err := MongoClinet.Disconnect(context.TODO())
+	err := MongoClient.Disconnect(context.TODO())
 	if err != nil {
 		panic(err)
 	}

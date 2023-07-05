@@ -13,7 +13,8 @@ func generateApp() *fiber.App {
 	})
 	//library group
 	libraryGroup := app.Group("/library")
-	libraryGroup.Get("/", handlers.TestHandlers)
-
+	//libraryGroup.Get("/", handlers.TestHandlers)
+	libraryGroup.Post("/", handlers.CreatLibrary)
+	libraryGroup.Get("/", handlers.GetLibraries)
 	return app
 }
