@@ -12,7 +12,8 @@ import (
 var MongoClinet *mongo.Client
 
 func GetCollection(collectName string) *mongo.Collection {
-	return MongoClinet.Database("demo_db").Collection(collectName)
+	database := os.Getenv("DATABASE")
+	return MongoClinet.Database(database).Collection(collectName)
 }
 
 func StartMongoDB() error {
